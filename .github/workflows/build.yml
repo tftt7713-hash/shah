@@ -25,40 +25,34 @@ jobs:
         gradle-version: '8.2'
         validate-wrappers: false
 
-    # 🔥 AUTOMATIC FIX: Yeh step apne aap aapki AndroidManifest.xml file ko bilkul sahi aur naye code se replace kar dega
-    - name: Override AndroidManifest with Perfect Code
+    # 🔥 SUPER FIX: Yeh script aapke project ke har folder mein jaakar kharab manifest ko mita degi
+    - name: Find and Destroy Corrupt Manifest Files
       run: |
-        mkdir -p src/main
-        cat << 'EOF' > src/main/AndroidManifest.xml
+        # Ek perfect manifest code taiyar karna
+        cat << 'EOF' > /tmp/perfect_manifest.xml
         <?xml version="1.0" encoding="utf-8"?>
         <manifest xmlns:android="http://github.com">
-
             <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
             <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
-
             <application
                 android:allowBackup="true"
                 android:icon="@android:drawable/ic_menu_agenda"
                 android:label="My Floating Widget"
                 android:theme="@style/Theme.AppCompat.Light.NoActionBar">
-
-                <activity
-                    android:name=".MainActivity"
-                    android:exported="true">
+                <activity android:name=".MainActivity" android:exported="true">
                     <intent-filter>
                         <action android:name="android.intent.action.MAIN" />
                         <category android:name="android.intent.category.LAUNCHER" />
                     </intent-filter>
                 </activity>
-
-                <service
-                    android:name=".FloatingWidgetService"
-                    android:enabled="true"
-                    android:exported="false" />
-
+                <service android:name=".FloatingWidgetService" android:enabled="true" android:exported="false" />
             </application>
         </manifest>
         EOF
+
+        # Poore project mein jahan bhi AndroidManifest.xml hai use perfect code se replace karna
+        find . -name "AndroidManifest.xml" -exec cp /tmp/perfect_manifest.xml {} \;
+        echo "Saari kharab manifest files theek kar di gayi hain!"
 
     - name: Build Debug APK
       run: gradle assembleDebug
