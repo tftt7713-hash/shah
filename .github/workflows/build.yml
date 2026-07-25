@@ -25,7 +25,41 @@ jobs:
         gradle-version: '8.2'
         validate-wrappers: false
 
-    # 🔥 FIX: Ab hum kharab gradlew file ka use nahi karenge, seedhe system ke gradle se build karenge
+    # 🔥 AUTOMATIC FIX: Yeh step apne aap aapki AndroidManifest.xml file ko bilkul sahi aur naye code se replace kar dega
+    - name: Override AndroidManifest with Perfect Code
+      run: |
+        mkdir -p src/main
+        cat << 'EOF' > src/main/AndroidManifest.xml
+        <?xml version="1.0" encoding="utf-8"?>
+        <manifest xmlns:android="http://github.com">
+
+            <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+            <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+
+            <application
+                android:allowBackup="true"
+                android:icon="@android:drawable/ic_menu_agenda"
+                android:label="My Floating Widget"
+                android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+
+                <activity
+                    android:name=".MainActivity"
+                    android:exported="true">
+                    <intent-filter>
+                        <action android:name="android.intent.action.MAIN" />
+                        <category android:name="android.intent.category.LAUNCHER" />
+                    </intent-filter>
+                </activity>
+
+                <service
+                    android:name=".FloatingWidgetService"
+                    android:enabled="true"
+                    android:exported="false" />
+
+            </application>
+        </manifest>
+        EOF
+
     - name: Build Debug APK
       run: gradle assembleDebug
 
@@ -33,4 +67,6 @@ jobs:
       uses: actions/upload-artifact@v4
       with:
         name: my-floating-widget-app
-        path: app/build/outputs/apk/debug/app-debug.apk
+        path: |
+          build/outputs/apk/debug/*.apk
+          app/build/outputs/apk/debug/*.apk
