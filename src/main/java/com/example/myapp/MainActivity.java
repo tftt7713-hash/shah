@@ -33,13 +33,8 @@ public class MainActivity extends Activity {
 
     private void startFloatingService() {
         Intent intent = new Intent(MainActivity.this, FloatingWidgetService.class);
-        
-        // 🔥 FIX: Android 8.0 (Oreo) aur upar ke liye startForegroundService zaroori hai
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            startForegroundService(intent);
-        } else {
-            startService(intent);
-        }
+        // Normal background service start kar rahe hain bina background restriction crash ke
+        startService(intent);
         finish(); 
     }
 
