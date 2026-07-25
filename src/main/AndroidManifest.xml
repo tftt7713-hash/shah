@@ -1,10 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://android.com">
+<manifest xmlns:android="http://github.com">
 
-    <!-- 🔐 Floating Widget Permissions (Fixed) -->
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
-    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_SPECIAL_USE" />
 
     <application
         android:allowBackup="true"
@@ -12,7 +10,6 @@
         android:label="My Floating Widget"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
 
-        <!-- 📱 Main Screen (MainActivity) -->
         <activity
             android:name=".MainActivity"
             android:exported="true">
@@ -22,16 +19,10 @@
             </intent-filter>
         </activity>
 
-        <!-- ⚙️ Floating Widget Service -->
         <service
             android:name=".FloatingWidgetService"
             android:enabled="true"
-            android:exported="false"
-            android:foregroundServiceType="specialUse">
-            <property 
-                android:name="android.app.PROPERTY_SPECIAL_USE_FALCON_SERVICE_TYPE" 
-                android:value="Floating widget display over other apps" />
-        </service>
+            android:exported="false" />
 
     </application>
 </manifest>
