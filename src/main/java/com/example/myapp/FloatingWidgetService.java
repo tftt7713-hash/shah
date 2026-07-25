@@ -57,9 +57,9 @@ public class FloatingWidgetService extends Service {
         floatingView = new ImageView(this);
 
         // ⭐⭐⭐ IMAGE KA NAAM YAHAN BADALNA HAI ⭐⭐⭐
-        // 'friend_pic' aapki photo ka naam hai jo drawable folder mein hai.
-        // Agar photo ka naam badalna hai, toh bas 'friend_pic' ki jagah wo naam likhein (bina .png lagaye)
-        floatingView.setImageResource(R.drawable.friend_pic);
+        // 'boy.jpg' aapki photo ka naam hai jo drawable folder mein hai.
+        // Agar photo ka naam badalna hai, toh bas 'boy.jpg' ki jagah wo naam likhein (bina .png lagaye)
+        floatingView.setImageResource(boy.jpg);
 
         // Photo ko pure 150x150 ke dabbe mein sahi se fit/crop karne ke liye
         floatingView.setScaleType(ImageView.ScaleType.CENTER_CROP);
