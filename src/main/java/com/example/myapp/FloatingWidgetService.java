@@ -12,11 +12,11 @@ import android.os.IBinder;
 import android.view.Gravity;
 import android.view.View;
 import android.view.WindowManager;
-import android.widget.ImageView; // 👈 Naya Import image lagane ke liye
+import android.widget.ImageView;
 
 public class FloatingWidgetService extends Service {
     private WindowManager windowManager;
-    private ImageView floatingView; // 👈 View ko ImageView mein badal diya hai
+    private ImageView floatingView;
     private static final String CHANNEL_ID = "FloatingWidgetChannel";
 
     @Override
@@ -53,18 +53,14 @@ public class FloatingWidgetService extends Service {
     public void onCreate() {
         super.onCreate();
         
-        // 1. ImageView object banana
         floatingView = new ImageView(this);
 
-        // ⭐⭐⭐ IMAGE KA NAAM YAHAN BADALNA HAI ⭐⭐⭐
-        // 'boy.jpg' aapki photo ka naam hai jo drawable folder mein hai.
-        // Agar photo ka naam badalna hai, toh bas 'boy.jpg' ki jagah wo naam likhein (bina .png lagaye)
-        floatingView.setImageResource(boy.jpg);
+        // 🎯 LINE NUMBER 58: AAPKA CODE YAHAN HAI
+        // Yahan sirf 'boy' likhna hai, '.jpg' BILKUL NAHIN likhna hai.
+        floatingView.setImageResource(R.drawable.boy);
 
-        // Photo ko pure 150x150 ke dabbe mein sahi se fit/crop karne ke liye
         floatingView.setScaleType(ImageView.ScaleType.CENTER_CROP);
 
-        // 2. Layout Type define karna naye aur purane android versions ke liye
         int layoutType;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             layoutType = WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY;
@@ -74,10 +70,9 @@ public class FloatingWidgetService extends Service {
             layoutType = oldType;
         }
 
-        // 3. Layout Parameters set karne ka tareeka
         final WindowManager.LayoutParams params = new WindowManager.LayoutParams();
-        params.width = 150;  // Width in pixels
-        params.height = 150; // Height in pixels
+        params.width = 150;  
+        params.height = 150; 
         params.type = layoutType;
         params.flags = WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE;
         params.format = PixelFormat.TRANSLUCENT;
@@ -86,7 +81,6 @@ public class FloatingWidgetService extends Service {
         params.x = 200;
         params.y = 200;
 
-        // 4. Window Manager initialize karke view add karna
         windowManager = (WindowManager) getSystemService(WINDOW_SERVICE);
         if (windowManager != null) {
             windowManager.addView(floatingView, params);
