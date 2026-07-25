@@ -1,13 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://github.com">
+<manifest xmlns:android="http://android.com"
+    package="shah">
 
+    <!-- In dono ke aakhiri mein /> lagana zaroori hai -->
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
 
     <application
         android:allowBackup="true"
-        android:icon="@android:drawable/ic_menu_agenda"
-        android:label="My Floating Widget"
+        android:icon="@mipmap/ic_launcher"
+        android:label="Floating Widget App"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
 
         <activity
@@ -17,12 +21,13 @@
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
+        </activity> <!-- Activity yahan slash se close ho rahi hai -->
 
         <service
             android:name=".FloatingWidgetService"
             android:enabled="true"
-            android:exported="false" />
+            android:exported="false" /> <!-- Service yahan /> se close ho rahi hai -->
 
-    </application>
-</manifest>
+    </application> <!-- Application yahan slash se close ho raha hai -->
+
+</manifest> <!-- Poora Manifest yahan slash se close ho raha hai -->
