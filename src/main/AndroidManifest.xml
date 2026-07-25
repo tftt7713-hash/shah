@@ -1,11 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://android.com"
-    package="com.example.myapp">
+<manifest xmlns:android="http://android.com">
 
-    <!-- 🔐 Floating Widget (Overlay) chalaane ke liye sabse zaroori permission -->
+    <!-- 🔐 Floating Widget Permissions (Fixed) -->
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
-    
-    <!-- 🔐 Background mein service bina crash huye chalaane ke liye permissions -->
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE_SPECIAL_USE" />
 
@@ -15,7 +12,7 @@
         android:label="My Floating Widget"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
 
-        <!-- 📱 Main Screen (MainActivity) jo app kholte hi chalegi -->
+        <!-- 📱 Main Screen (MainActivity) -->
         <activity
             android:name=".MainActivity"
             android:exported="true">
@@ -25,7 +22,7 @@
             </intent-filter>
         </activity>
 
-        <!-- ⚙️ Floating Widget Service jo parde ke peeche photo chalayegi -->
+        <!-- ⚙️ Floating Widget Service -->
         <service
             android:name=".FloatingWidgetService"
             android:enabled="true"
