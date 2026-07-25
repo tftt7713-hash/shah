@@ -1,21 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://github.com"
-    xmlns:android="http://android.com"
+<manifest xmlns:android="http://android.com"
     package="com.example.myapp">
 
-    <!-- Screen par overlay draw karne ki permission -->
-    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>
+    <!-- 🔐 Floating Widget (Overlay) chalaane ke liye sabse zaroori permission -->
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
     
-    <!-- 🔥 FIX: Android 9 (Pie) aur upar ke liye yeh permission zaroori hai -->
-    <uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>
+    <!-- 🔐 Background mein service bina crash huye chalaane ke liye permissions -->
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_SPECIAL_USE" />
 
     <application
         android:allowBackup="true"
-        android:label="My Overlay Tool"
-        android:supportsRtl="true">
-        
-        <!-- Main Activity Launcher (App open hote hi sabse pehle chalega) -->
-        <activity android:name=".MainActivity"
+        android:icon="@android:drawable/ic_menu_agenda"
+        android:label="My Floating Widget"
+        android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+
+        <!-- 📱 Main Screen (MainActivity) jo app kholte hi chalegi -->
+        <activity
+            android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -23,11 +25,16 @@
             </intent-filter>
         </activity>
 
-        <!-- Background Overlay Service -->
-        <service android:name=".FloatingWidgetService"
+        <!-- ⚙️ Floating Widget Service jo parde ke peeche photo chalayegi -->
+        <service
+            android:name=".FloatingWidgetService"
             android:enabled="true"
-            android:exported="false"/>
+            android:exported="false"
+            android:foregroundServiceType="specialUse">
+            <property 
+                android:name="android.app.PROPERTY_SPECIAL_USE_FALCON_SERVICE_TYPE" 
+                android:value="Floating widget display over other apps" />
+        </service>
 
     </application>
-
 </manifest>
