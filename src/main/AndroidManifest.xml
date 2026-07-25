@@ -1,33 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://android.com"
-    package="shah">
+    package="com.example.myapp">
 
-    <!-- In dono ke aakhiri mein /> lagana zaroori hai -->
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
         android:label="Floating Widget App"
-        android:roundIcon="@mipmap/ic_launcher_round"
-        android:supportsRtl="true"
-        android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+        android:supportsRtl="true">
 
         <activity
-            android:name=".MainActivity"
+            android:name="com.example.myapp.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity> <!-- Activity yahan slash se close ho rahi hai -->
+        </activity>
 
         <service
-            android:name=".FloatingWidgetService"
+            android:name="com.example.myapp.FloatingWidgetService"
             android:enabled="true"
-            android:exported="false" /> <!-- Service yahan /> se close ho rahi hai -->
+            android:exported="false" />
 
-    </application> <!-- Application yahan slash se close ho raha hai -->
+    </application>
 
-</manifest> <!-- Poora Manifest yahan slash se close ho raha hai -->
+</manifest>
