@@ -10,6 +10,7 @@ import java.lang.SuppressWarnings;
 import android.os.Build;
 import android.os.IBinder;
 import android.view.Gravity;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.ImageView;
@@ -55,10 +56,9 @@ public class FloatingWidgetService extends Service {
         
         floatingView = new ImageView(this);
 
-        // 🎯 LINE NUMBER 58: AAPKA CODE YAHAN HAI
-        // Yahan sirf 'boy' likhna hai, '.jpg' BILKUL NAHIN likhna hai.
+        // ✅ Aapki 'boy' photo yahan connect ho gayi hai.
+        // Dhyan rahe ki res/drawable me file ka naam small letters me 'boy.png' ya 'boy.jpg' hi ho.
         floatingView.setImageResource(R.drawable.boy);
-
         floatingView.setScaleType(ImageView.ScaleType.CENTER_CROP);
 
         int layoutType;
@@ -85,6 +85,34 @@ public class FloatingWidgetService extends Service {
         if (windowManager != null) {
             windowManager.addView(floatingView, params);
         }
+
+        // ✅ Widget ko screen par ungli se move/drag karne ka logic
+        floatingView.setOnTouchListener(new View.OnTouchListener() {
+            private int initialX;
+            private int initialY;
+            private float initialTouchX;
+            private float initialTouchY;
+
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                switch (event.getAction()) {
+                    case MotionEvent.ACTION_DOWN:
+                        initialX = params.x;
+                        initialY = params.y;
+                        initialTouchX = event.getRawX();
+                        initialTouchY = event.getRawY();
+                        return true;
+                    case MotionEvent.ACTION_MOVE:
+                        params.x = initialX + (int) (event.getRawX() - initialTouchX);
+                        params.y = initialY + (int) (event.getRawY() - initialTouchY);
+                        if (windowManager != null) {
+                            windowManager.updateViewLayout(floatingView, params);
+                        }
+                        return true;
+                }
+                return false;
+            }
+        });
     }
 
     private void createNotificationChannel() {
